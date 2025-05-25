@@ -12,6 +12,6 @@ class Produk implements ToCollection
     */
     public function collection(Collection $collection)
     {
-        //
+        dd($collection->toArray());
     }
 }

@@ -6,7 +6,7 @@ use Livewire\Component;
 use App\Models\Produk as ModelProduk;
 use Livewire\WithFileUploads;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Imports\ImportProduk;
+use App\Imports\Produk as ImportProduk;
 
 class Produk extends Component
 {
@@ -21,7 +21,7 @@ class Produk extends Component
 
     public function importExcel()
     {
-     
+        Excel::import(new ImportProduk, $this->fileExcel);
         $this->reset();
     }
 
@@ -51,7 +51,7 @@ class Produk extends Component
             'stok.required' => 'stok harus diisi',
         ]);
         $simpan = $this->produkTerpilih;
-        $simpan->name = $this->nama;
+        $simpan->nama = $this->nama;
         $simpan->kode = $this->kode;
         $simpan->stok = ($this->stok);
         $simpan->harga = $this->harga;
