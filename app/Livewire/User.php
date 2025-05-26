@@ -4,6 +4,9 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\User as ModelUser;
+use Illuminate\Support\Facades\Auth;
+
+
 
 
 class User extends Component
@@ -14,6 +17,13 @@ class User extends Component
     public $peran;
     public $password;
     public $penggunaTerpilih;
+
+   public function mount()
+    {
+        if (Auth::user()->peran !== 'admin') {
+            abort(403, 'Unauthorized action.');
+        }
+    }
 
     public function pilihEdit($id)
     {
@@ -47,7 +57,7 @@ class User extends Component
         $simpan->peran = $this->peran;
         $simpan->save();
 
-        $this->reset(['nama', 'email', 'password', 'peran','penggunaTerpilih']);
+        $this->reset(['nama', 'email', 'password', 'peran', 'penggunaTerpilih']);
         $this->pilihanMenu = 'lihat';
     }
 
