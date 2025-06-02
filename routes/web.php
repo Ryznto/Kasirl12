@@ -9,6 +9,7 @@ use App\Livewire\Transaksi;
 use App\Livewire\Laporan;
 
 
+
 Route::get('/', function () {
     return view('welcome');
 });

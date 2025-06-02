@@ -11,6 +11,7 @@ class Transaksi extends Component
     public $kode, $total, $status, $kembalian, $totalSemuaBelanja;
     public $bayar = 0;
     public $transaksiAktif;
+    public $alertMessage = null; // properti untuk alert
 
     public function transaksiBaru()
     {
@@ -20,6 +21,8 @@ class Transaksi extends Component
         $this->transaksiAktif->total = 0;
         $this->transaksiAktif->status = 'pending';
         $this->transaksiAktif->save();
+
+        $this->alertMessage = null; // hilangkan alert saat mulai transaksi baru
     }
 
     public function batalTransaksi()
@@ -35,6 +38,7 @@ class Transaksi extends Component
             $this->transaksiAktif->delete();
         }
         $this->reset();
+        $this->alertMessage = "Belum ada transaksi."; // alert saat batal transaksi (jadi gak ada transaksi aktif)
     }
 
     public function updatedKode()
@@ -52,12 +56,14 @@ class Transaksi extends Component
             $this->reset('kode');
         }
     }
+
     public function updatedBayar()
     {
         if ($this->bayar > 0) {
             $this->kembalian = $this->bayar - $this->totalSemuaBelanja;
         }
     }
+
     public function hapusProduk($id)
     {
         $detil = DetailTransaksi::find($id);
@@ -68,13 +74,17 @@ class Transaksi extends Component
         }
         $detil->delete();
     }
+
     public function transaksiSelesai()
     {
         $this->transaksiAktif->total = $this->totalSemuaBelanja;
         $this->transaksiAktif->status = 'selesai';
         $this->transaksiAktif->save();
-        $this->reset();
+
+        $this->alertMessage = "Selamat, transaksi anda berhasil!";
+        $this->reset(['transaksiAktif', 'kode', 'bayar', 'kembalian', 'totalSemuaBelanja']);
     }
+
     public function render()
     {
         if ($this->transaksiAktif) {
@@ -87,7 +97,12 @@ class Transaksi extends Component
         }
 
         return view('livewire.transaksi')->with([
-            'semuaProduk' => $semuaProduk
-        ]);
+            'semuaProduk' => $semuaProduk,
+            'alertMessage' => $this->alertMessage, // kirim alert ke view
+            'transaksiAktif' => $this->transaksiAktif,
+            'totalSemuaBelanja' => $this->totalSemuaBelanja,
+            'kembalian' => $this->kembalian,
+            'bayar' => $this->bayar,
+        ]); 
     }
 }
