@@ -16,11 +16,56 @@
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        body {
+            background-color: #1f1f2e;
+            color: #f0f0f0;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .navbar {
+            background-color: #2a2a40 !important;
+        }
+
+        .navbar .navbar-brand,
+        .navbar .nav-link,
+        .navbar .dropdown-toggle {
+            color: #f0f0f0 !important;
+        }
+
+        .navbar .nav-link:hover,
+        .navbar .dropdown-toggle:hover {
+            color: #a5a5ff !important;
+        }
+
+        .dropdown-menu {
+            background-color: #2a2a40;
+            border: none;
+        }
+
+        .dropdown-menu .dropdown-item {
+            color: #f0f0f0;
+        }
+
+        .dropdown-menu .dropdown-item:hover {
+            background-color: #38385c;
+            color: #ffffff;
+        }
+
+        main {
+            padding-top: 2rem;
+        }
+
+        .shadow-sm {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
+        }
+    </style>
 </head>
 
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -68,7 +113,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main>
             @yield('content')
         </main>
     </div>

@@ -3,10 +3,10 @@
         <div class="row mt-4">
             <div class="col-12">
                 <div class="card shadow border-0">
-                    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center rounded-top">
+                    <div class="card-header text-white d-flex justify-content-between align-items-center rounded-top" style="background-color: #264653;">
                         <h4 class="mb-0">📄 Laporan Transaksi</h4>
                         <a href="{{ url('/cetak') }}" target="_blank" class="btn btn-light btn-sm shadow-sm">
-                            <i class="bi bi-printer-fill"></i> Cetak
+                            <i class="bi bi-printer-fill"></i> CETAK
                         </a>
                     </div>
                     <div class="card-body pt-4"> <!-- padding top ditambah -->
@@ -32,7 +32,7 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="4" class="text-center text-muted">Belum ada transaksi</td>
+                                            <td colspan="4" class="text-center text-muted">Belum ada Transaksi</td>
                                         </tr>
                                     @endforelse
                                 </tbody>
